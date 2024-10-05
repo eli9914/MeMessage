@@ -14,9 +14,8 @@ const Chat = () => {
 
   const handleLogout = () => {
     dispatch(logout())
-    persistor.purge().then(() => {
-      navigate('/')
-    })
+    persistor.purge()
+    navigate('/')
   }
 
   return (
