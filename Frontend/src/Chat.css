@@ -1,0 +1,171 @@
+/* Chat.css */
+
+.chat-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column; /* Set the direction to column to stack header on top */
+  background-color: #eceff1; /* Light gray background for the entire chat container */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #aa67e7; /* Primary color for the header */
+  color: white; /* White text for contrast */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.header img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+.header span {
+  font-weight: bold;
+  margin-right: auto; /* Pushes the logout button to the right */
+}
+
+.logout-button {
+  padding: 8px 12px;
+  background-color: #e53935; /* Red background for the logout button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.logout-button:hover {
+  background-color: #c62828; /* Darker red on hover */
+}
+
+.chat-content {
+  display: flex; /* Keep the chat content as a flex container */
+  flex: 1; /* Take the remaining space */
+}
+
+.user-sidebar {
+  background-color: #ffffff; /* White background for sidebar */
+  border-right: 1px solid #ccc; /* Light border for separation */
+  padding: 15px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  overflow-y: auto; /* Allow scrolling for long user lists */
+}
+
+.user-sidebar h3 {
+  margin: 0 0 10px; /* Margin for heading */
+  color: #333; /* Dark text for contrast */
+}
+
+.user-sidebar ul {
+  list-style: none; /* No bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 0; /* Remove default margin */
+}
+
+.user-sidebar li {
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.user-sidebar li:hover {
+  background-color: #f5f5f5; /* Light grey background on hover */
+}
+
+.chatWindow {
+  flex: 1; /* Take the remaining space */
+  display: flex;
+  flex-direction: column; /* Stack messages and input vertically */
+  padding: 20px;
+  background-color: #ffffff; /* White background for chat window */
+}
+
+.chatWindow h3 {
+  margin: 0 0 15px; /* Margin for heading */
+  color: #333; /* Dark text for contrast */
+}
+
+.messages {
+  flex: 1; /* Take remaining space in chat window */
+  overflow-y: auto; /* Scroll if content exceeds height */
+  padding: 10px;
+  background-color: #f9f9f9; /* Light grey for message area */
+  border: 1px solid #ccc; /* Light border around messages */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.messages div {
+  margin-bottom: 10px; /* Space between messages */
+  padding: 8px; /* Padding for message bubbles */
+  border-radius: 5px; /* Rounded corners for messages */
+  position: relative; /* For positioning the timestamp */
+}
+
+.messages strong {
+  color: #1976d2; /* Blue text for usernames */
+}
+
+.messages .from-me {
+  background-color: #e1f5fe; /* Light blue for messages sent by the user */
+  text-align: right; /* Align text to the right for user messages */
+}
+
+.messages .from-others {
+  background-color: #ffe0b2; /* Light orange for messages from others */
+  text-align: left; /* Align text to the left for others' messages */
+}
+
+.message-time {
+  font-size: 0.75em; /* Smaller font size for timestamps */
+  color: #999; /* Light gray color for timestamps */
+  position: absolute;
+  bottom: 5px; /* Position at the bottom of message bubbles */
+  right: 10px; /* Right alignment */
+}
+
+.profile-picture {
+  width: 30px; /* Adjust width as needed */
+  height: 30px; /* Adjust height as needed */
+  border-radius: 50%; /* Makes the image circular */
+  margin-left: 10px; /* Space between username and image */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+}
+
+input[type='text'] {
+  padding: 10px;
+  border: 1px solid #ccc; /* Light border for input */
+  border-radius: 5px; /* Rounded corners */
+  margin-right: 10px; /* Space between input and button */
+  width: calc(100% - 120px); /* Full width minus button space */
+}
+
+button {
+  padding: 10px 15px;
+  background-color: #aa67e7; /* Blue button for sending */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+
+.send-button {
+  padding: 10px 15px;
+  background-color: #29c015; /* Blue button for sending */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transition for hover effect */
+}
+.send-button:hover {
+  background-color: #148a05; /* Darker blue on hover */
+}
+button:hover {
+  background-color: #8c0683; /* Darker blue on hover */
+}
