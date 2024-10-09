@@ -5,7 +5,7 @@ const MessageService = require('../Services/MessageService')
 
 router.post('/send', async (req, res) => {
   try {
-    console.log('Message Controller called')
+    console.log('Message Controller called', req.body)
     const status = await MessageService.sendMessage(req.body, req.io)
     res.status(200).send(status)
   } catch (error) {
@@ -13,6 +13,7 @@ router.post('/send', async (req, res) => {
   }
 })
 
+// Get messages for a specific user by their ID
 router.get('/User/:userId', async (req, res) => {
   try {
     const messages = await MessageService.getMessageByUserId(req.params.userId)
@@ -22,6 +23,7 @@ router.get('/User/:userId', async (req, res) => {
   }
 })
 
+// Get messages for a specific group by group ID
 router.get('/group/:groupId', async (req, res) => {
   try {
     const messages = await MessageService.getMessageByGroupId(

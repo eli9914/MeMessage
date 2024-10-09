@@ -11,11 +11,16 @@ const getMessageById = async (id) => {
   return message
 }
 
+// MessageService.js
 const getMessageByUserId = async (userId) => {
-  const messages = await MessageModel.find({
-    $or: [{ sender: userId }, { receiver: userId }],
-  }).sort({ createdAt: -1 })
-  return messages
+  return await MessageModel.find({
+    $or: [
+      { sender: userId }, // Messages sent by the user
+      { recipients: userId }, // Messages received by the user
+    ],
+  })
+    .populate('sender')
+    .populate('recipients') // Populate sender and recipients if needed
 }
 
 const getMessageByGroupId = async (groupId) => {
@@ -28,13 +33,11 @@ const getMessageByGroupId = async (groupId) => {
 const sendMessage = async (message, io) => {
   console.log('Message Service called')
   const newMessage = await createMessage(message)
-  if (message.recipients && message.recipients.length > 0) {
-    message.recipients.forEach((recipient) => {
-      io.to(recipient).emit('message', newMessage)
-    })
+  if (message.recipients) {
+    io.to(message.recipients).emit('receive_message', newMessage)
   }
 
-  return 'Message sent successfully'
+  return message.content
 }
 
 module.exports = {

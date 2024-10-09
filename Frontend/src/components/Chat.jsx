@@ -2,7 +2,6 @@ import React from 'react'
 import UserSideBar from './UserSideBar'
 import ChatWindow from './ChatWindow'
 import '../Chat.css'
-import { persistor } from '../main'
 import { logout } from '../redux/actions/authAction'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -14,7 +13,6 @@ const Chat = () => {
 
   const handleLogout = () => {
     dispatch(logout())
-    persistor.purge()
     navigate('/')
   }
 
@@ -25,8 +23,10 @@ const Chat = () => {
         <span>Hello {loggedInUser?.username}</span>
         <button onClick={handleLogout}>Log out</button>
       </div>
-      <UserSideBar />
-      <ChatWindow />
+      <div className='chat-content'>
+        <UserSideBar />
+        <ChatWindow />
+      </div>
     </div>
   )
 }
