@@ -3,7 +3,7 @@ const MessageModel = require('../Models/MessageModel')
 const createMessage = async (message) => {
   const newMessage = new MessageModel(message)
   await newMessage.save()
-  return 'Message created successfully'
+  return newMessage
 }
 
 const getMessageById = async (id) => {
@@ -22,6 +22,15 @@ const getMessageByUserId = async (userId) => {
     .populate('sender')
     .populate('recipients') // Populate sender and recipients if needed
 }
+// Fetch conversation between two users
+const getConversationBetweenUsers = async (userId1, userId2) => {
+  return await MessageModel.find({
+    $or: [
+      { sender: userId1, recipients: userId2 },
+      { sender: userId2, recipients: userId1 },
+    ],
+  }).sort({ timestamp: 1 }) // Sort messages by timestamp (optional)
+}
 
 const getMessageByGroupId = async (groupId) => {
   const messages = await MessageModel.find({
@@ -30,14 +39,9 @@ const getMessageByGroupId = async (groupId) => {
   return messages
 }
 
-const sendMessage = async (message, io) => {
-  console.log('Message Service called')
+const sendMessage = async (message) => {
   const newMessage = await createMessage(message)
-  if (message.recipients) {
-    io.to(message.recipients).emit('receive_message', newMessage)
-  }
-
-  return message.content
+  return newMessage
 }
 
 module.exports = {
@@ -45,5 +49,6 @@ module.exports = {
   getMessageById,
   getMessageByUserId,
   getMessageByGroupId,
+  getConversationBetweenUsers,
   sendMessage,
 }

@@ -10,19 +10,14 @@ const UserController = require('./Controllers/UserController')
 const GroupController = require('./Controllers/GroupController')
 const MessageController = require('./Controllers/MessageController')
 const authController = require('./Controllers/authController')
+const initializeSocket = require('./Middlewares/socket')
 
 require('./config/DbConnect')
 
 const server = http.createServer(app)
-const io = socketio(server, {
-  cors: {
-    origin: 'http://127.0.0.1:5173', // Allow connections from your frontend
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods for WebSocket connections
-    credentials: true, // If credentials (cookies, authorization headers) are needed
-  },
-})
+const io = initializeSocket(server)
 app.use(express.json())
-// Specify the exact origin of your frontend
+
 app.use(
   cors({
     origin: 'http://127.0.0.1:5173', // Replace with your frontend's origin
@@ -31,12 +26,12 @@ app.use(
   })
 )
 
-// Middleware to add io to req
-app.use((req, res, next) => {
-  console.log('Middleware called')
-  req.io = io
-  next()
-})
+// // Middleware to add io to req
+// app.use((req, res, next) => {
+//   console.log('Middleware called')
+//   req.io = io
+//   next()
+// })
 
 app.use('/users', UserController)
 app.use('/groups', GroupController)

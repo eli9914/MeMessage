@@ -21,7 +21,9 @@ const Chat = () => {
       <div className='header'>
         <img src={loggedInUser.profilePicture} alt='Profile' />
         <span>Hello {loggedInUser?.username}</span>
-        <button onClick={handleLogout}>Log out</button>
+        <button className='logout-button' onClick={handleLogout}>
+          Log out
+        </button>
       </div>
       <div className='chat-content'>
         <UserSideBar />

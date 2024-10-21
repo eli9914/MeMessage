@@ -5,9 +5,8 @@ const MessageService = require('../Services/MessageService')
 
 router.post('/send', async (req, res) => {
   try {
-    console.log('Message Controller called', req.body)
-    const status = await MessageService.sendMessage(req.body, req.io)
-    res.status(200).send(status)
+    const message = await MessageService.sendMessage(req.body, req.io)
+    res.status(200).json(message)
   } catch (error) {
     res.status(500).send(error.message)
   }
@@ -17,6 +16,20 @@ router.post('/send', async (req, res) => {
 router.get('/User/:userId', async (req, res) => {
   try {
     const messages = await MessageService.getMessageByUserId(req.params.userId)
+    res.status(200).send(messages)
+  } catch (error) {
+    res.status(500).send(error.message)
+  }
+})
+
+// Get messages between two users (loggedInUser and selectedUser)
+router.get('/conversation/:userId1/:userId2', async (req, res) => {
+  try {
+    const { userId1, userId2 } = req.params
+    const messages = await MessageService.getConversationBetweenUsers(
+      userId1,
+      userId2
+    )
     res.status(200).send(messages)
   } catch (error) {
     res.status(500).send(error.message)

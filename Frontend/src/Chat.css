@@ -1,27 +1,20 @@
-/* Chat.css */
-
+/* General styling for the chat container */
 .chat-container {
   display: flex;
   height: 100vh;
-  flex-direction: column; /* Set the direction to column to stack header on top */
-  background-color: #eceff1; /* Light gray background for the entire chat container */
+  flex-direction: column;
+  background-color: #f5f5f5; /* Softer light gray for the background */
 }
 
+/* Header styling */
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between; /* Space between username and logout button */
   padding: 15px;
-  background-color: #aa67e7; /* Primary color for the header */
-  color: white; /* White text for contrast */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-}
-.user-sidebar {
-  width: 15%; /* Sidebar takes up 25% of the space */
-  background-color: #ffffff;
-  border-right: 1px solid #ccc;
-  padding: 15px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
+  background-color: #aa67e7;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .header img {
@@ -33,147 +26,160 @@
 
 .header span {
   font-weight: bold;
-  margin-right: auto; /* Pushes the logout button to the right */
+  font-size: 1.2em;
 }
 
 .logout-button {
   padding: 8px 12px;
-  background-color: #e53935; /* Red background for the logout button */
+  background-color: #e53935;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Transition for hover effect */
+  transition: background-color 0.3s ease;
 }
 
 .logout-button:hover {
-  background-color: #c62828; /* Darker red on hover */
+  background-color: #c62828;
 }
 
-.chat-content {
-  display: flex; /* Keep the chat content as a flex container */
-  flex: 1; /* Take the remaining space */
-}
-
+/* Sidebar styling */
 .user-sidebar {
-  background-color: #ffffff; /* White background for sidebar */
-  border-right: 1px solid #ccc; /* Light border for separation */
+  width: 20%; /* Increased for better usability */
+  background-color: #ffffff;
+  border-right: 1px solid #ccc;
   padding: 15px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
-  overflow-y: auto; /* Allow scrolling for long user lists */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
 }
 
 .user-sidebar h3 {
-  margin: 0 0 10px; /* Margin for heading */
-  color: #333; /* Dark text for contrast */
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.2em;
 }
 
 .user-sidebar ul {
-  list-style: none; /* No bullet points */
-  padding: 0; /* Remove default padding */
-  margin: 0; /* Remove default margin */
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .user-sidebar li {
   padding: 10px;
+  margin-bottom: 5px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Transition for hover effect */
+  background-color: #f0f0f0;
+  transition: background-color 0.3s ease;
 }
 
 .user-sidebar li:hover {
-  background-color: #f5f5f5; /* Light grey background on hover */
+  background-color: #e0e0e0;
+}
+
+/* Chat window styling */
+.chat-content {
+  display: flex;
+  flex: 1;
 }
 
 .chatWindow {
-  flex: 1; /* Take the remaining space */
+  flex: 1;
   display: flex;
-  flex-direction: column; /* Stack messages and input vertically */
+  flex-direction: column;
   padding: 15px;
-  background-color: #ffffff; /* White background for chat window */
-}
-
-.chatWindow h3 {
-  margin: 0 0 15px; /* Margin for heading */
-  color: #333; /* Dark text for contrast */
+  background-color: #ffffff;
+  border-left: 1px solid #ddd; /* Subtle separation between sidebar and chat */
 }
 
 .messages {
-  flex: 1; /* Take remaining space in chat window */
-  overflow-y: auto; /* Scroll if content exceeds height */
-  padding: 10px;
-  background-color: #f9f9f9; /* Light grey for message area */
-  border: 1px solid #ccc; /* Light border around messages */
-  border-radius: 5px; /* Rounded corners */
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
+/* Message bubbles */
 .messages div {
-  margin-bottom: 10px; /* Space between messages */
-  padding: 8px; /* Padding for message bubbles */
-  border-radius: 5px; /* Rounded corners for messages */
-  position: relative; /* For positioning the timestamp */
+  margin-bottom: 10px;
+  padding: 10px 15px; /* Increased padding for better readability */
+  border-radius: 8px;
+  max-width: 70%; /* Limit message width */
+  word-wrap: break-word; /* Ensure long messages wrap correctly */
+  position: relative;
 }
 
-.messages strong {
-  color: #1976d2; /* Blue text for usernames */
-}
-
+/* User messages (align right) */
 .messages .from-me {
-  background-color: #e1f5fe; /* Light blue for messages sent by the user */
-  text-align: right; /* Align text to the right for user messages */
+  background-color: #77b5d2; /* Light blue for messages sent by the user */
+  margin-right: auto; /* Align to the right */
+  text-align: left; /* Right-align text */
+  border-radius: 10px; /* More square corners */
+  max-width: 20%; /* Limit message width to make it less long */
+  padding: 12px; /* Increased padding for larger message content */
+  position: relative; /* Ensure timestamp is positioned correctly */
 }
 
+/* Other user messages (align left) */
 .messages .from-others {
-  background-color: #ffe0b2; /* Light orange for messages from others */
-  text-align: left; /* Align text to the left for others' messages */
+  background-color: #35ddbe; /* Light green for messages from others */
+  margin-left: auto; /* Align to the left */
+  text-align: left; /* Left-align text */
+  border-radius: 10px; /* More square corners */
+  max-width: 30%; /* Limit message width to make it less long */
+  padding: 12px; /* Increased padding for larger message content */
+  position: relative; /* Ensure timestamp is positioned correctly */
 }
 
-.message-time {
-  font-size: 0.75em; /* Smaller font size for timestamps */
-  color: #999; /* Light gray color for timestamps */
+/* Timestamp styling */
+.timestamp {
+  font-size: 0.7em; /* Smaller font size for timestamps */
+  color: #000000; /* Light gray color for timestamps */
   position: absolute;
-  bottom: 5px; /* Position at the bottom of message bubbles */
-  right: 10px; /* Right alignment */
+  bottom: 0px; /* Position below the message */
+  right: 10px; /* Right alignment for user messages */
+  left: 10px; /* Left alignment for other messages */
+  text-align: right; /* Center the timestamp text */
 }
 
+/* Chat input and send button styling */
+input[type='text'] {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: calc(100% - 130px); /* Adjusted to accommodate the send button */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+button,
+.send-button {
+  padding: 10px 15px;
+  background-color: #29c015; /* Green send button */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+  background-color: #148a05; /* Darker green on hover */
+}
+
+button:hover {
+  background-color: #8c0683; /* Darker blue on hover */
+}
+
+/* Profile picture styling */
 .profile-picture {
   width: 30px; /* Adjust width as needed */
   height: 30px; /* Adjust height as needed */
   border-radius: 50%; /* Makes the image circular */
   margin-left: 10px; /* Space between username and image */
   object-fit: cover; /* Ensures the image covers the area without distortion */
-}
-
-input[type='text'] {
-  padding: 10px;
-  border: 1px solid #ccc; /* Light border for input */
-  border-radius: 5px; /* Rounded corners */
-  margin-right: 10px; /* Space between input and button */
-  width: calc(100% - 120px); /* Full width minus button space */
-}
-
-button {
-  padding: 10px 15px;
-  background-color: #aa67e7; /* Blue button for sending */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease; /* Transition for hover effect */
-}
-
-.send-button {
-  padding: 10px 15px;
-  background-color: #29c015; /* Blue button for sending */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease; /* Transition for hover effect */
-}
-.send-button:hover {
-  background-color: #148a05; /* Darker blue on hover */
-}
-button:hover {
-  background-color: #8c0683; /* Darker blue on hover */
 }

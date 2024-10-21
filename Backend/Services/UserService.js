@@ -1,4 +1,3 @@
-const { get } = require('mongoose')
 const userModel = require('../Models/UserModel')
 
 const getAllUsers = async () => {
