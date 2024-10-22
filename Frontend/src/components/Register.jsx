@@ -1,25 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../redux/actions/authAction'
-import { Link, useNavigate } from 'react-router-dom'
+import { register } from '../redux/actions/authAction' // Assuming you have a register action
+import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Register = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [details, setDetails] = useState({ username: '', password: '' })
-  const user = useSelector((state) => state.auth.user)
-  const error = useSelector((state) => state.auth.error)
+  const [details, setDetails] = useState({
+    username: '',
+    password: '',
+    profilePicture: '',
+  })
+  const [error, setError] = useState(null)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    dispatch(login(details))
+    dispatch(register(details))
+    alert('Registered successfully')
+    navigate('/')
   }
-
-  useEffect(() => {
-    if (user !== null) {
-      navigate('/Chat')
-    }
-  }, [user])
 
   return (
     <div
@@ -37,7 +36,7 @@ const Login = () => {
           <br />
           <br />
           <h1 className='text-center' style={{ color: 'white' }}>
-            Login Page
+            Register Page
           </h1>
           <br />
           <br />
@@ -74,12 +73,24 @@ const Login = () => {
                 style={{ width: '100%' }} // Ensure width is 100%
               />
             </div>
+            <div className='form-group'>
+              <label htmlFor='profilePicture'>Profile Picture</label>
+              <input
+                type='text'
+                className='form-control'
+                placeholder='Enter URL of profile picture'
+                id='profilePicture'
+                value={details.profilePicture}
+                onChange={(e) =>
+                  setDetails({ ...details, profilePicture: e.target.value })
+                }
+                style={{ width: '100%' }} // Ensure width is 100%
+              />
+            </div>
             <button type='submit' className='btn btn-primary btn-block'>
-              Login
+              Register
             </button>
             <br />
-            <h6>Dont have an account?</h6>
-            <Link to='/Register'>Register here</Link>
           </form>
           {error && (
             <div className='alert alert-danger' role='alert'>
@@ -92,4 +103,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Register

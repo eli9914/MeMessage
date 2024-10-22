@@ -12,16 +12,21 @@ const authReducer = (state = initialState, action) => {
         error: null,
       }
     case 'LOGIN_FAIL':
-      // if (process.env.NODE_ENV === 'development') {
-      //   alert(action.payload)
-      // }
       return {
         ...state,
         user: null,
         error: action.payload,
       }
-
+    case 'REGISTER_SUCCESS':
+      return { ...state }
+    case 'REGISTER_FAIL':
+      return {
+        ...state,
+        user: null,
+        error: action.payload,
+      }
     case 'LOGOUT':
+      localStorage.removeItem('user') // Clear user data from localStorage
       return { user: null, error: null }
     default:
       return state

@@ -18,12 +18,11 @@ const initializeSocket = (server) => {
       socket.join(userId)
       console.log(`${userId} has joined their room`)
     })
+
     // Listen for 'send_message' event
     socket.on('send_message', (data) => {
-      console.log('Message sent:', data)
       if (data.recipients) {
         io.to(data.recipients).emit('receive_message', data)
-        console.log('Message sent to:', data.recipients)
       } else if (data.groupId) {
         io.to(data.groupId).emit('receive_message', data)
       }

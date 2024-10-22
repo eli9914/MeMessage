@@ -44,7 +44,6 @@ const fetchConversation = (loggedInUser, selectedUser) => async (dispatch) => {
 const sendMessage = (message) => async (dispatch) => {
   try {
     const response = await axiosInstance.post('/messages/send', message)
-    // console.log('Message sent:', response.data)
     dispatch({ type: SEND_MESSAGE, payload: response.data })
   } catch (error) {
     console.error('Error sending message:', error.response || error.message)

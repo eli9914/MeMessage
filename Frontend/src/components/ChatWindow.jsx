@@ -20,17 +20,9 @@ const ChatWindow = () => {
   }, [loggedInUser, selectedUser, dispatch])
 
   // Listen for real-time messages via Socket.IO
-  const { emit } = useSocket('http://localhost:3000', loggedInUser._id, [
-    {
-      event: 'receive_message',
-      handler: (msg) => {
-        console.log('Received message via socket:', msg)
-        if (msg && msg.content && msg.content.trim() !== '') {
-          dispatch(receiveMessage(msg)) // Dispatch received message to Redux
-        }
-      },
-    },
-  ])
+
+  // Initialize socket connection with user ID
+  const { emit } = useSocket('http://localhost:3000', loggedInUser._id)
 
   const handleSendMessage = () => {
     if (message.trim() && selectedUser?._id && loggedInUser?._id) {
@@ -55,9 +47,9 @@ const ChatWindow = () => {
       <h3>Chat with {selectedUser?.username}</h3>
       <div className='messages'>
         {messages.length === 0 && <p>No messages yet</p>}
-        {messages.map((msg) => (
+        {messages.map((msg, index) => (
           <div
-            key={msg._id}
+            key={index}
             className={
               msg.sender === loggedInUser._id ? 'from-me' : 'from-others'
             }
