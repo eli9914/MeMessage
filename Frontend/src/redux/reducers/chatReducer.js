@@ -21,8 +21,11 @@ const chatReducer = (state = initialState, action) => {
         ...state,
         messages: [...state.messages, action.payload], // Append new message
       }
-    case 'CLEAR_MESSAGES':
-      return { ...state, messages: [] }
+    case 'DELETE_MESSAGE':
+      return {
+        ...state,
+        messages: state.messages.filter((msg) => msg._id !== action.payload),
+      }
 
     default:
       return state

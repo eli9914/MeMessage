@@ -10,6 +10,7 @@ const FETCH_CONVERSATION = 'FETCH_CONVERSATION'
 const SEND_MESSAGE = 'SEND_MESSAGE'
 const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE'
 const CLEAR_MESSAGES = 'CLEAR_MESSAGES'
+const DELETE_MESSAGE = 'DELETE_MESSAGE'
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000',
 })
@@ -54,9 +55,16 @@ const receiveMessage = (message) => ({
   type: RECEIVE_MESSAGE,
   payload: message,
 })
-const clearMessages = () => ({
-  type: CLEAR_MESSAGES,
-})
+const deleteMessage = (messageId, userId) => async (dispatch) => {
+  try {
+    await axiosInstance.delete(`/messages/${messageId}`, {
+      data: { userId },
+    })
+    dispatch({ type: DELETE_MESSAGE, payload: messageId })
+  } catch (error) {
+    console.error('Error deleting message:', error.response || error.message)
+  }
+}
 
 export {
   fetchUsers,
@@ -64,5 +72,5 @@ export {
   fetchConversation,
   sendMessage,
   receiveMessage,
-  clearMessages,
+  deleteMessage,
 }

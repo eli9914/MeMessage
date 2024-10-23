@@ -47,4 +47,16 @@ router.get('/group/:groupId', async (req, res) => {
     res.status(500).send(error.message)
   }
 })
+router.delete('/:messageId', async (req, res) => {
+  try {
+    const userId = req.body.userId
+    const message = await MessageService.deleteMessage(
+      req.params.messageId,
+      userId
+    )
+    res.status(200).send(message)
+  } catch (error) {
+    res.status(500).send(error.message)
+  }
+})
 module.exports = router

@@ -1,11 +1,33 @@
 const MessageModel = require('../Models/MessageModel')
 
 const createMessage = async (message) => {
+  const { sender, recipients } = message
+  console.log('Sender:', sender)
+  console.log('Recipients:', recipients)
+  await limitMessages(sender, recipients)
   const newMessage = new MessageModel(message)
   await newMessage.save()
   return newMessage
 }
 
+// Limit the number of messages in a conversation
+const limitMessages = async (sender, recipients, messageLimit = 20) => {
+  const conversationMessages = await getConversationBetweenUsers(
+    sender,
+    recipients
+  )
+
+  // If the total messages in the conversation exceed the limit, delete the oldest one(s)
+  if (conversationMessages.length > messageLimit) {
+    const excessMessages = conversationMessages.length - messageLimit + 1
+    // Delete the oldest excess messages
+    const oldestMessageIds = conversationMessages
+      .slice(0, excessMessages)
+      .map((message) => message._id)
+
+    await MessageModel.deleteMany({ _id: { $in: oldestMessageIds } })
+  }
+}
 const getMessageById = async (id) => {
   const message = await MessageModel.findById(id)
   return message
@@ -44,6 +66,18 @@ const sendMessage = async (message) => {
   return newMessage
 }
 
+const deleteMessage = async (messageId, userId) => {
+  const message = await MessageModel.findById(messageId)
+  if (!message) {
+    throw new Error('Message not found')
+  }
+  console.log('sender', message.sender.toString())
+  if (message.sender.toString() !== userId || !userId) {
+    throw new Error('You are not authorized to delete this message')
+  }
+  await MessageModel.findByIdAndDelete(messageId)
+  return 'Message deleted successfully'
+}
 module.exports = {
   createMessage,
   getMessageById,
@@ -51,4 +85,5 @@ module.exports = {
   getMessageByGroupId,
   getConversationBetweenUsers,
   sendMessage,
+  deleteMessage,
 }
