@@ -9,6 +9,7 @@ import useSocket from '../utils/webSocketConnection'
 import {
   fetchGroupConversation,
   sendGroupMessage,
+  deleteGroupMessage,
 } from '../redux/actions/groupChatAction'
 
 const ChatWindow = () => {
@@ -68,9 +69,16 @@ const ChatWindow = () => {
   }
 
   const handleDeleteMessage = async (messageId) => {
-    if (window.confirm('Are you sure you want to delete this message?')) {
+    const confirmationMessage = 'Are you sure you want to delete this message?'
+
+    // Use a single confirmation prompt for both cases
+    if (window.confirm(confirmationMessage)) {
       try {
-        await dispatch(deleteMessage(messageId, loggedInUser._id))
+        if (selectedGroup) {
+          await dispatch(deleteGroupMessage(messageId, loggedInUser._id))
+        } else if (selectedUser) {
+          await dispatch(deleteMessage(messageId, loggedInUser._id))
+        }
       } catch (error) {
         console.error('Failed to delete message:', error)
       }
@@ -99,6 +107,26 @@ const ChatWindow = () => {
           ? selectedGroup.name
           : ''}
       </h4>
+
+      {/* Group Members List */}
+      {selectedGroup && (
+        <div className='group-members'>
+          <ul>
+            {selectedGroup.members.map((memberId) => {
+              if (memberId === loggedInUser._id) {
+                return <li key={memberId}>{loggedInUser.username}</li>
+              }
+              const member = users.find((user) => user._id === memberId)
+              return (
+                <li key={memberId}>
+                  {member ? member.username : 'Unknown User'}
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      )}
+
       <div className='messages'>
         {messages.length === 0 && <p>No messages yet</p>}
         {messages.map((msg, index) => (

@@ -24,11 +24,11 @@ const groupReducer = (state = initialState, action) => {
         ...state,
         messages: [...state.messages, action.payload], // Append new message
       }
-    // case 'DELETE_GROUP_MESSAGE':
-    // return {
-    //     ...state,
-    //     messages: state.messages.filter((msg) => msg._id !== action.payload),
-    // }
+    case 'DELETE_GROUP_MESSAGE':
+      return {
+        ...state,
+        messages: state.messages.filter((msg) => msg._id !== action.payload),
+      }
 
     default:
       return state

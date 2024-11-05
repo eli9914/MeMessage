@@ -10,6 +10,7 @@ const SEND_GROUP_MESSAGE = 'SEND_GROUP_MESSAGE'
 const RECEIVE_GROUP_MESSAGE = 'RECEIVE_GROUP_MESSAGE'
 const SET_SELECTED_GROUP = 'SET_SELECTED_GROUP'
 const CREATE_GROUP = 'CREATE_GROUP'
+const DELETE_GROUP_MESSAGE = 'DELETE_GROUP_MESSAGE'
 
 const fetchUserGroups = (loggedInUserId) => async (dispatch) => {
   try {
@@ -60,6 +61,16 @@ const createGroup =
       console.error('Error response:', error.response)
     }
   }
+const deleteGroupMessage = (messageId, userId) => async (dispatch) => {
+  try {
+    await axiosInstance.delete(`/messages/${messageId}`, {
+      data: { userId },
+    })
+    dispatch({ type: DELETE_GROUP_MESSAGE, payload: messageId })
+  } catch (error) {
+    console.error('Error deleting message:', error.response || error.message)
+  }
+}
 
 export {
   fetchUserGroups,
@@ -67,5 +78,6 @@ export {
   sendGroupMessage,
   receiveGroupMessage,
   setSelectedGroup,
+  deleteGroupMessage,
   createGroup,
 }

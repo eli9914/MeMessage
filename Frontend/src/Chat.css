@@ -159,6 +159,26 @@ button:hover {
   background-color: #8c0683; /* Darker blue on hover */
 }
 
+.group-members {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.group-members h5 {
+  margin: 0;
+  font-size: 1em;
+}
+
+.group-members ul {
+  list-style: none;
+  padding: 0;
+}
+
+.group-members li {
+  font-size: 0.9em;
+  margin: 5px 0;
+}
+
 /* Profile picture styling */
 .profile-picture {
   width: 30px; /* Adjust width as needed */
