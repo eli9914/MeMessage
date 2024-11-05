@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUsers, setSelectedUser } from '../redux/actions/chatAction'
+import { setSelectedGroup } from '../redux/actions/groupChatAction'
 
 const UserSideBar = () => {
   const dispatch = useDispatch()
@@ -18,7 +19,13 @@ const UserSideBar = () => {
       <h3>Users</h3>
       <ul>
         {users.map((user) => (
-          <li key={user._id} onClick={() => dispatch(setSelectedUser(user))}>
+          <li
+            key={user._id}
+            onClick={() => {
+              dispatch(setSelectedUser(user)) // Deselect any selected user
+              dispatch(setSelectedGroup(null)) // Set the selected group
+            }}
+          >
             <img
               className='profile-picture'
               src={user.profilePicture}

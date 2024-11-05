@@ -4,16 +4,21 @@ const getAllGroups = async () => {
   const groups = await GroupModel.find()
   return groups
 }
-
 const getGroupById = async (groupId) => {
   const group = await GroupModel.findById(groupId)
   return group
 }
 
+const getGroupsByUserId = async (userId) => {
+  const groups = await GroupModel.find({
+    $or: [{ admin: userId }, { members: userId }],
+  })
+  return groups
+}
 const createGroup = async (group) => {
   const newGroup = new GroupModel(group)
   await newGroup.save()
-  return 'Group created successfully'
+  return newGroup
 }
 
 const checkIfAdmin = async (groupId, userId) => {
@@ -22,7 +27,7 @@ const checkIfAdmin = async (groupId, userId) => {
   return false
 }
 
-const addUsetToGroup = async (groupId, AdminId, userId) => {
+const addUserToGroup = async (groupId, AdminId, userId) => {
   const group = await findGroupById(groupId)
   if (!group) return 'Group not found'
   if (group.admin !== AdminId) return 'User not authorized to add user to group'
@@ -52,7 +57,10 @@ const removeUserFromGroup = async (groupId, AdminId, userId) => {
 }
 
 const deleteGroup = async (groupId, AdminId) => {
-  if (group.admin !== AdminId) return 'User not authorized to delete group'
+  const group = await getGroupById(groupId)
+  if (!group) return 'Group not found'
+  if (group.admin.toString() !== AdminId.toString())
+    return 'User not authorized to delete group'
   await GroupModel.findByIdAndDelete(groupId)
   return 'Group deleted successfully'
 }
@@ -60,9 +68,10 @@ const deleteGroup = async (groupId, AdminId) => {
 module.exports = {
   getAllGroups,
   getGroupById,
+  getGroupsByUserId,
   createGroup,
   checkIfAdmin,
-  addUsetToGroup,
+  addUserToGroup,
   removeUserFromGroup,
   deleteGroup,
 }

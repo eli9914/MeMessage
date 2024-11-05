@@ -39,7 +39,7 @@ router.get('/conversation/:userId1/:userId2', async (req, res) => {
 // Get messages for a specific group by group ID
 router.get('/group/:groupId', async (req, res) => {
   try {
-    const messages = await MessageService.getMessageByGroupId(
+    const messages = await MessageService.getConversationByGroupId(
       req.params.groupId
     )
     res.status(200).send(messages)

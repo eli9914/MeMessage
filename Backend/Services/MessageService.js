@@ -2,8 +2,6 @@ const MessageModel = require('../Models/MessageModel')
 
 const createMessage = async (message) => {
   const { sender, recipients } = message
-  console.log('Sender:', sender)
-  console.log('Recipients:', recipients)
   await limitMessages(sender, recipients)
   const newMessage = new MessageModel(message)
   await newMessage.save()
@@ -54,11 +52,11 @@ const getConversationBetweenUsers = async (userId1, userId2) => {
   }).sort({ timestamp: 1 }) // Sort messages by timestamp (optional)
 }
 
-const getMessageByGroupId = async (groupId) => {
-  const messages = await MessageModel.find({
-    groupId: groupId,
-  }).sort({ createdAt: -1 })
-  return messages
+// Fetch conversation of the group
+const getConversationByGroupId = async (groupId) => {
+  return await MessageModel.find({
+    group: groupId,
+  }).sort({ timestamp: 1 }) // Sort messages by timestamp (optional)
 }
 
 const sendMessage = async (message) => {
@@ -82,7 +80,7 @@ module.exports = {
   createMessage,
   getMessageById,
   getMessageByUserId,
-  getMessageByGroupId,
+  getConversationByGroupId,
   getConversationBetweenUsers,
   sendMessage,
   deleteMessage,

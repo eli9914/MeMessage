@@ -1,5 +1,4 @@
 import axios from 'axios'
-import useSocket from '../../utils/webSocketConnection'
 
 //Using in UserSideBar.jsx
 const FETCH_USERS = 'FETCH_USERS'
@@ -9,12 +8,12 @@ const SET_SELECTED_USER = 'SET_SELECTED_USER'
 const FETCH_CONVERSATION = 'FETCH_CONVERSATION'
 const SEND_MESSAGE = 'SEND_MESSAGE'
 const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE'
-const CLEAR_MESSAGES = 'CLEAR_MESSAGES'
 const DELETE_MESSAGE = 'DELETE_MESSAGE'
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000',
 })
 
+//Using in UserSideBar.jsx
 const fetchUsers = (loggedInUserId) => async (dispatch) => {
   try {
     const { data } = await axiosInstance.get('/users')
@@ -30,6 +29,7 @@ const setSelectedUser = (user) => ({
   payload: user,
 })
 
+//using in ChatWindow.jsx
 const fetchConversation = (loggedInUser, selectedUser) => async (dispatch) => {
   try {
     const response = await axiosInstance.get(

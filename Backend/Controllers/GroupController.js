@@ -12,15 +12,14 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.get('/:groupId', async (req, res) => {
+router.get('/:userId', async (req, res) => {
   try {
-    const group = await GroupService.getGroupById(req.params.groupId)
-    res.status(200).send(group)
+    const groups = await GroupService.getGroupsByUserId(req.params.userId)
+    res.status(200).send(groups)
   } catch (error) {
     res.status(500).send(error.message)
   }
 })
-
 router.post('/create', async (req, res) => {
   try {
     const status = await GroupService.createGroup(req.body)

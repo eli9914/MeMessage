@@ -1,15 +1,16 @@
 import React from 'react'
-import UserSideBar from './UserSideBar'
 import ChatWindow from './ChatWindow'
 import '../Chat.css'
 import { logout } from '../redux/actions/authAction'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import SidebarContainer from './SideBarContainer'
 
 const Chat = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { user: loggedInUser } = useSelector((state) => state.auth)
+  const users = useSelector((state) => state.chat.users)
 
   const handleLogout = () => {
     dispatch(logout())
@@ -26,8 +27,8 @@ const Chat = () => {
         </button>
       </div>
       <div className='chat-content'>
-        <UserSideBar />
-        <ChatWindow />
+        <SidebarContainer users={users} loggedInUser={loggedInUser} />
+        <ChatWindow loggedInUser={loggedInUser} />
       </div>
     </div>
   )

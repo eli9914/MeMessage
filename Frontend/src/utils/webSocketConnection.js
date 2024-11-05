@@ -2,6 +2,7 @@ import io from 'socket.io-client'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { receiveMessage } from '../redux/actions/chatAction'
+import { receiveGroupMessage } from '../redux/actions/groupChatAction'
 
 const useSocket = (url, userId) => {
   const [socket, setSocket] = useState(null) // Use state to store the socket instance
@@ -35,6 +36,12 @@ const useSocket = (url, userId) => {
       }
     })
 
+    // Handle receiving a group message
+    newSocket.on('receive_group_message', (msg) => {
+      if (msg && msg.content && msg.content.trim() !== '') {
+        dispatch(receiveGroupMessage(msg)) // Dispatch received message to Redux store
+      }
+    })
     // Cleanup on component unmount
     return () => {
       newSocket.disconnect() // Disconnect the socket when the component unmounts
