@@ -16,8 +16,13 @@ const Login = () => {
   }
 
   useEffect(() => {
+    const token = localStorage.getItem('token')
     if (user !== null) {
-      navigate('/Chat')
+      if (token) {
+        navigate('/Chat')
+      } else {
+        navigate('/')
+      }
     }
   }, [user])
 

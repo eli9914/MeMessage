@@ -38,7 +38,7 @@ const ChatWindow = () => {
     }
   }, [loggedInUser, selectedUser, selectedGroup, dispatch])
 
-  const { emit } = useSocket('http://localhost:3000', loggedInUser._id)
+  const { emit } = useSocket('http://localhost:3000', loggedInUser?._id)
 
   const handleSendMessage = () => {
     if (message.trim() && loggedInUser?._id) {
