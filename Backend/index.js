@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const http = require('http')
-const socketio = require('socket.io')
+// const socketio = require('socket.io')
 
 const app = express()
 const port = 3000
@@ -20,18 +20,17 @@ app.use(express.json())
 
 app.use(
   cors({
-    origin: 'http://127.0.0.1:5173', // Replace with your frontend's origin
+    origin: 'http://127.0.0.1:5173', //localhost origin
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // Allowed methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
   })
 )
 
-// // Middleware to add io to req
-// app.use((req, res, next) => {
-//   console.log('Middleware called')
-//   req.io = io
-//   next()
-// })
+// Middleware to add io to req
+app.use((req, res, next) => {
+  req.io = io
+  next()
+})
 
 app.use('/users', UserController)
 app.use('/groups', GroupController)

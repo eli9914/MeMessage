@@ -1,6 +1,6 @@
 // socket.js
 const socketio = require('socket.io')
-const groupService = require('../services/groupService')
+const groupService = require('../Services/GroupService')
 
 const initializeSocket = (server) => {
   const io = socketio(server, {
@@ -27,9 +27,6 @@ const initializeSocket = (server) => {
     socket.on('send_group_message', async (data) => {
       try {
         const group = await groupService.getGroupById(data.group)
-        console.log('msg:', data)
-        console.log('Group:', group)
-
         if (group && group.members) {
           // Emit the message to each member in the group except the sender
           group.members.forEach((memberId) => {
