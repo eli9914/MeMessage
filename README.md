@@ -74,14 +74,14 @@ This will start both the backend server and the frontend.
 3. After the register, log in with your'e new user details.
 
 ### Messaging
-1.You can send messages to individuals users or groups.
-2.Real-time message updates are powered by Socket.io.
-3.you can click on the message and delete it.
+1. You can send messages to individuals users or groups.
+2. Real-time message updates are powered by Socket.io.
+3. you can click on the message and delete it.
 
 ### Managing Groups
-1.click on the '+' to open the 'create group' form.
-2.Create new groups by filling out the form and clicking "Create Group".
-3.View and manage messages within each group.
+1. click on the '+' to open the 'create group' form.
+2. Create new groups by filling out the form and clicking "Create Group".
+3. View and manage messages within each group.
 
 ### Features
 -User authentication with JWT
